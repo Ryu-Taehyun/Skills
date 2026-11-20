@@ -7,6 +7,7 @@ Claude용 커스텀 스킬 모음입니다.
 | 스킬 | 설명 |
 |------|------|
 | [code-checker](code-checker/SKILL.md) | 프로젝트를 점검하고 승인 후 GitHub에 업로드하는 스킬 |
+| [github-upload](github-upload/skills/github-upload/SKILL.md) | 검토를 마친 프로젝트를 승인 후 GitHub에 게시하는 플러그인 |
 
 ## code-checker
 
@@ -27,6 +28,20 @@ Claude용 커스텀 스킬 모음입니다.
 - 사용자의 명시적 승인 없이 파일 수정, 커밋, 푸시를 하지 않습니다.
 - 치명적인 오류가 발견되면 커밋·푸시 여부를 묻지 않습니다.
 
+## github-upload
+
+`code-checker` 검토를 통과한 프로젝트를 사용자 승인 후 GitHub에 게시합니다.
+
+**진행 과정**
+- `README.md`, `.gitignore`, 저장소 설명 초안 작성 (라이선스는 승인 시에만 추가)
+- 저장소 소유자·이름·공개 범위·브랜치·변경 파일을 보여주고 명시적 승인 요청
+- 커밋 전 스테이징 파일과 Git 히스토리의 비밀키·민감정보 검사 (발견 시 위치만 보고하고 중단)
+- 커밋·푸시 후 저장소 URL, 브랜치, 커밋 해시, 라이선스 여부, `.gitignore` 내용 보고
+
+**원칙**
+- `code-checker` 검토가 없거나 게시가 막힌 상태면 실행하지 않습니다.
+- 승인 없이 파일 변경, 저장소 생성, 커밋, 푸시를 하지 않습니다.
+
 ## 사용 방법
 
-`code-checker/` 폴더를 Claude의 스킬 폴더에 넣고 프로젝트 점검을 요청하면 됩니다.
+`code-checker/` 폴더를 Claude의 스킬 폴더에 넣고 프로젝트 점검을 요청하면 됩니다. `github-upload/`는 플러그인으로 설치해 `code-checker` 검토 후 사용합니다.
